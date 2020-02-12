@@ -26,18 +26,20 @@
 		</div>
 	</form>
 	<button id="write_btn">작성</button>
+	<button id="cancle_btn">취소</button>
 </body>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <script>
+$('#cancle_btn').on('click', function(){
+	location.href='/bbs';
+});
 $('#write_btn').on('click', function(){
-	
 	var data = {
 		title : $('#title').val(),
 		content : $('#content').val(),
 		writer : $('#writer').val()
-			
 	}
 	
 	$.ajax({
@@ -60,8 +62,6 @@ $('#write_btn').on('click', function(){
 		
 		alert('작성실패');
 	});
-	
-	
 });
 	
 </script>

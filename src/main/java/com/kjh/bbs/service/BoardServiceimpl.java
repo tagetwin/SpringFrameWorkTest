@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kjh.bbs.dto.BoardVO;
 import com.kjh.bbs.mapper.BoardMapper;
@@ -29,23 +30,34 @@ public class BoardServiceimpl implements BoardService {
 		return result;
 	}
 
+	
 	@Override
+	@Transactional
 	public BoardVO selectOne(int bno) {
 
-		 BoardVO board = mapper.read(bno);
-		
-		return board;
+		try
+		{
+			BoardVO board = mapper.read(bno);
+			mapper.updateReadCount(bno);
+			 return board;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException();
+		}
 	}
 
 	@Override
 	public void update(BoardVO board) {
-
+		
+		mapper.update(board);
 		
 	}
 
 	@Override
-	public void delete(int bno) {
-
+	public int delete(int bno) {
+		
+		int result = mapper.delete(bno);
+		return result;
 		
 	}
 }

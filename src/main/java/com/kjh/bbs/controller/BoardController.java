@@ -4,9 +4,11 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -51,5 +53,30 @@ public class BoardController {
 		model.addAttribute("board",board);
 		
 		return "detail";
+	}
+	
+	@DeleteMapping("/list/{bno}")
+	public @ResponseBody int Delete(@PathVariable int bno) {
+
+		int result = service.delete(bno);
+		return result;
+		
+	}
+	
+	@GetMapping("/list/update/{bno}")
+	public String update(@PathVariable int bno, Model model) {
+
+		BoardVO board = service.selectOne(bno);
+		
+		model.addAttribute("board",board);
+		
+		return "update";
+	}
+	
+	@PutMapping("/list/{bno}")
+	public @ResponseBody void updateProc(@PathVariable int bno, @RequestBody BoardVO board) {
+		
+		service.update(board);
+		
 	}
 }
