@@ -17,7 +17,6 @@ import com.kjh.bbs.mapper.BoardMapper;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/root-context.xml" })
-
 public class DBTest {
 
 	@Inject //
@@ -59,4 +58,31 @@ public class DBTest {
 		int result = mapper.insert(board);
 		System.out.println(result);
 	}
+	
+	@Test
+	public void testRead() {
+		int bno = 1;
+//		BoardVO board =
+				mapper.read(bno);
+//		System.out.println(board.getBno());
+//		System.out.println(board.getTitle());
+//		System.out.println(board.getContent());
+//		System.out.println(board.getWriter());
+//		System.out.println(board.getRegDate());
+//		System.out.println();
+		
+	}
+	
+	@Test
+	public void testDel() {
+		int bno = 11;
+		mapper.delete(bno);
+	}
+	
+//	@Test
+//	public void testDel() {
+//		int bno = 11;
+//		mapper.
+//	}
+	
 }

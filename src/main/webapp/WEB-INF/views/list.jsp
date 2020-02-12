@@ -10,30 +10,32 @@
 </head>
 <body>
 	<h1>리스트 페이지입니다.</h1>
-	<table border="1">
-		<thead>
-			<tr>
-				<th>번호</th>
-				<th>제목</th>
-				<th>내용</th>
-				<th>작성자</th>
-				<th>날짜</th>
-				<th>조회수</th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach var="list" items="${list}">
+	<div class="center">
+		<table border="1">
+			<thead>
 				<tr>
-					<td>${list.bno}</td>
-					<td><a href="list/${list.bno}">${list.title}</a></td>
-					<td>${list.content}</td>
-					<td>${list.writer}</td>
-					<td><fmt:formatDate value="${list.regDate}"/> </td>
-					<td>${list.readCount}</td>
+					<th>번호</th>
+					<th>제목</th>
+					<th>내용</th>
+					<th>작성자</th>
+					<th>날짜</th>
+					<th>조회수</th>
 				</tr>
-			</c:forEach>
-		</tbody>
-	</table>
+			</thead>
+			<tbody>
+				<c:forEach var="list" items="${list}">
+					<tr>
+						<td>${list.bno}</td>
+						<td><a href="list/${list.bno}">${list.title}</a></td>
+						<td>${list.content}</td>
+						<td>${list.writer}</td>
+						<td><fmt:formatDate value="${list.regDate}" /></td>
+						<td>${list.readCount}</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+		</div>
 	<a href="write">글쓰기</a>
 </body>
 </html>

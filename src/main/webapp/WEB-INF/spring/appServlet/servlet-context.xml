@@ -26,6 +26,4 @@
 	<!-- 여기를 기준으로 다 스캔 (아래에 컨트롤러 라고 되어있으면 찾아간다) -->
 	<context:component-scan base-package="com.kjh.bbs" /> 
 	
-	
-	
 </beans:beans>
