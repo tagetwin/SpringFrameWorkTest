@@ -61,7 +61,7 @@ public class DBTest {
 	
 	@Test
 	public void testRead() {
-		int bno = 1;
+		int bno = 3;
 //		BoardVO board =
 				mapper.read(bno);
 //		System.out.println(board.getBno());
@@ -79,10 +79,14 @@ public class DBTest {
 		mapper.delete(bno);
 	}
 	
-//	@Test
-//	public void testDel() {
-//		int bno = 11;
-//		mapper.
-//	}
+	@Test
+	public void testInsertSelectKey() {
+		BoardVO board = new BoardVO();
+		board.setTitle("title");
+		board.setContent("content");
+		board.setWriter("writer");
+		mapper.insertSelectKey(board);
+	}
 	
+//	@Test
 }

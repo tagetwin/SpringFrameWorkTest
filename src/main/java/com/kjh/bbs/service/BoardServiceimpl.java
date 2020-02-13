@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kjh.bbs.dto.BoardVO;
+import com.kjh.bbs.dto.Criteria;
 import com.kjh.bbs.mapper.BoardMapper;
 
 @Service // 있어야 바로 오토와이어 할 수 있다.
@@ -59,5 +60,22 @@ public class BoardServiceimpl implements BoardService {
 		int result = mapper.delete(bno);
 		return result;
 		
+	}
+
+	@Override
+	public void insertSelectKey(BoardVO board) {
+		mapper.insertSelectKey(board);
+	}
+
+	@Override
+	public List<BoardVO> selectPaging(Criteria cri) {
+
+		return mapper.listPaging(cri);
+	}
+
+
+	@Override
+	public int countPaging(Criteria cri) {
+		return mapper.countPaging(cri);
 	}
 }

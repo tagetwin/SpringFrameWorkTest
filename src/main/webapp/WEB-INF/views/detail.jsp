@@ -23,7 +23,7 @@
 			<textarea id="content" readonly="readonly">${board.content}</textarea>
 		</div>
 	</form>
-	<a href="/bbs">목록</a>
+	<a href="/">목록</a>
 	<input type="hidden" id="bno" value="${board.bno}" />
 	<button id="upd_btn">수정</button>
 	<button id="del_btn">삭제</button>
@@ -37,12 +37,12 @@ $('#del_btn').on('click', function() {
 	$.ajax({
 
 		type : 'DELETE',
-		url : '/bbs/list/' + bno
+		url : '/list/' + bno
 
 	}).done(function(r) {
 		if(r == 1){
 			alert('삭제성공');
-			location.href = '/bbs';
+			location.href = '/';
 		}
 	}).fail(function() {
 		alert('삭제실패');
@@ -51,7 +51,7 @@ $('#del_btn').on('click', function() {
 });
 $('#upd_btn').on('click', function() {
 	var bno = $('#bno').val();
-	location.href='/bbs/list/update/' + bno
+	location.href='/list/update/' + bno
 
 });
 </script>

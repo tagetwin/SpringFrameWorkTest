@@ -33,7 +33,7 @@
 
 <script>
 $('#cancle_btn').on('click', function(){
-	location.href='/bbs';
+	location.href='/';
 });
 $('#write_btn').on('click', function(){
 	var data = {
@@ -45,7 +45,7 @@ $('#write_btn').on('click', function(){
 	$.ajax({
 	
 		type : 'POST',
-		url : '/bbs/write',
+		url : '/write',
 		data : JSON.stringify(data),
 		contentType : 'application/json; charset=utf-8',
 		
@@ -53,7 +53,7 @@ $('#write_btn').on('click', function(){
 		if(r==1){
 			console.log(r)
 			alert('작성성공');
-			location.href = '/bbs/list';
+			location.href = '/list';
 		}else{
 			alert('작성실패1');	
 		}
