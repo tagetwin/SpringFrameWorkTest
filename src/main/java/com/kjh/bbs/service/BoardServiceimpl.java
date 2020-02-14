@@ -5,77 +5,35 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.kjh.bbs.dto.BoardVO;
-import com.kjh.bbs.dto.Criteria;
+import com.kjh.bbs.dto.RepleVO;
 import com.kjh.bbs.mapper.BoardMapper;
+import com.kjh.bbs.mapper.RepleMapper;
 
 @Service // 있어야 바로 오토와이어 할 수 있다.
-public class BoardServiceimpl implements BoardService {
+public class BoardServiceimpl implements RepleService {
 
 	@Inject
-	private BoardMapper mapper;
+	private RepleMapper repleMapper;
+	
+	@Inject
+	private BoardMapper boardMapper;
 	
 	@Override
-	public List<BoardVO> selectAll() {
-
-		return mapper.getList();
+	public void register(RepleVO reple) {
+		boardMapper.updateRepleCount(1, reple.getBno());
+		repleMapper.insert(reple);
 	}
 
 	@Override
-	public int insert(BoardVO board) {
-
-		int result = mapper.insert(board);
-				
-		return result;
-	}
-
-	
-	@Override
-	@Transactional
-	public BoardVO selectOne(int bno) {
-
-		try
-		{
-			BoardVO board = mapper.read(bno);
-			mapper.updateReadCount(bno);
-			 return board;
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException();
-		}
+	public List<RepleVO> getList(int bno) {
+		return repleMapper.getList(bno);
 	}
 
 	@Override
-	public void update(BoardVO board) {
-		
-		mapper.update(board);
-		
-	}
-
-	@Override
-	public int delete(int bno) {
-		
-		int result = mapper.delete(bno);
-		return result;
-		
-	}
-
-	@Override
-	public void insertSelectKey(BoardVO board) {
-		mapper.insertSelectKey(board);
-	}
-
-	@Override
-	public List<BoardVO> selectPaging(Criteria cri) {
-
-		return mapper.listPaging(cri);
-	}
-
-
-	@Override
-	public int countPaging(Criteria cri) {
-		return mapper.countPaging(cri);
+	public void remove(int rno) {
+		RepleVO reple = repleMapper.getReple(rno);
+		boardMapper.updateRepleCount(-1, reple.getBno());
+		repleMapper.delete(rno);
 	}
 }

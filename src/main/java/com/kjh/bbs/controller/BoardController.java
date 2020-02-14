@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kjh.bbs.dto.BoardVO;
 import com.kjh.bbs.dto.Criteria;
@@ -26,13 +27,11 @@ public class BoardController {
 	BoardService service;
 	
 	@GetMapping({"/list","","/"})
-	public String list(@ModelAttribute("cri") Criteria cri, Model model, @RequestParam(required = false, defaultValue = "1") int page) {
+	public String list(@ModelAttribute("cri") Criteria cri, Model model) {
 		int totalPage = service.countPaging(cri);
 		PageMaker pm = new PageMaker();
 		pm.setCri(cri);
 		pm.setTotalCount(totalPage);
-		cri.setPage(page);
-		cri.setPerPageNum(10);
 		model.addAttribute("pageMaker", pm);
 		model.addAttribute("list", service.selectPaging(cri));
 		
@@ -92,20 +91,35 @@ public class BoardController {
 	}
 	
 	@GetMapping("/update2")
-	public String update2(@RequestParam("bno") int bno, Model model) {
+	public String update2(@ModelAttribute("cri") Criteria cri, @RequestParam("bno") int bno, Model model) {
 		model.addAttribute("board", service.selectOne(bno));
 		return "update2";
 	}
 	
 	@PostMapping("/update2")
-	public String update2(@ModelAttribute BoardVO board) {
+	public String update2(@ModelAttribute("cri") Criteria cri, @ModelAttribute BoardVO board, RedirectAttributes rttr) {
 		service.update(board);
+		
+		rttr.addAttribute("page", cri.getPage());
+		rttr.addAttribute("perPageNum", cri.getPerPageNum());
+//		rttr.addAttribute("type", cri.getTypeArr());
+		rttr.addAttribute("type", cri.getType());
+		rttr.addAttribute("keyword", cri.getKeyword());
+		
 		return "redirect:list";
+		
+//		int page = cri.getPage();
+//		System.out.println("업데이트페이지 :"+page);
+//		return "redirect:list"+page;
 	}
 	
-	@GetMapping("/delete")
-	public String delete2(@RequestParam("bno") int bno) {
+	@GetMapping("/delete2")
+	public String delete2(@ModelAttribute("cri") Criteria cri, @RequestParam("bno") int bno, RedirectAttributes rttr) {
 		service.delete(bno);
+		rttr.addAttribute("page", cri.getPage());
+		rttr.addAttribute("perPageNum", cri.getPerPageNum());
+		rttr.addAttribute("type", cri.getType());
+		rttr.addAttribute("keyword", cri.getKeyword());
 		return "redirect:/list";
 	}
 }

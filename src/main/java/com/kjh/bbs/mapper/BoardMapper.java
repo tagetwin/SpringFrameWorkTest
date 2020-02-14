@@ -2,6 +2,8 @@ package com.kjh.bbs.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.kjh.bbs.dto.BoardVO;
 import com.kjh.bbs.dto.Criteria;
 
@@ -17,4 +19,6 @@ public interface BoardMapper {
 	public void updateReadCount(int bno);
 	public List<BoardVO> listPaging(Criteria cri);
 	public int countPaging(Criteria cri);
+	public void updateRepleCount(@Param("amount")int n,@Param("bno") int bno);
+	
 }
